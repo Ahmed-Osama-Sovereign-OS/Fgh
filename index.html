@@ -1,0 +1,1314 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Ahmed Osama Abdel Hafiz El Hag Ali - Lottery</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html,body{
+    width:100%;
+    min-height:100%;
+}
+
+body{
+    background:#05020d;
+    color:white;
+    font-family:Arial, sans-serif;
+    overflow:hidden;
+}
+
+/* =========================
+   الصفحات
+========================= */
+
+.page{
+    position:fixed;
+    inset:0;
+    display:none;
+    overflow:auto;
+}
+
+.page.active{
+    display:flex;
+}
+
+/* =========================
+   الخلفية
+========================= */
+
+.page::before,
+.page::after{
+    content:"";
+    position:absolute;
+    border-radius:50%;
+    filter:blur(100px);
+    pointer-events:none;
+}
+
+.page::before{
+    width:420px;
+    height:420px;
+    background:#7c00ff;
+    opacity:.18;
+    top:-150px;
+    right:-100px;
+}
+
+.page::after{
+    width:380px;
+    height:380px;
+    background:#00e5ff;
+    opacity:.13;
+    bottom:-150px;
+    left:-100px;
+}
+
+/* =========================
+   الاسم
+========================= */
+
+.owner{
+    position:absolute;
+    top:25px;
+    left:50%;
+    transform:translateX(-50%);
+    width:95%;
+    text-align:center;
+    z-index:50;
+
+    font-size:clamp(14px,2.5vw,26px);
+    font-weight:900;
+    letter-spacing:1.5px;
+
+    background:linear-gradient(
+        90deg,
+        #00e5ff,
+        #8a2be2,
+        #ff2bd6,
+        #00e5ff
+    );
+
+    background-size:300%;
+
+    -webkit-background-clip:text;
+    background-clip:text;
+
+    color:transparent;
+
+    animation:nameGlow 6s linear infinite;
+
+    filter:
+        drop-shadow(0 0 8px rgba(0,229,255,.35));
+}
+
+@keyframes nameGlow{
+    0%{
+        background-position:0%;
+    }
+    100%{
+        background-position:300%;
+    }
+}
+
+/* =========================
+   صفحة الأسماء
+========================= */
+
+#pageNames{
+    align-items:center;
+    justify-content:center;
+    padding:100px 18px 30px;
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(111,0,255,.12),
+            transparent 40%
+        ),
+        linear-gradient(
+            135deg,
+            #05020d,
+            #090014,
+            #02030b
+        );
+}
+
+.namesBox{
+    position:relative;
+    z-index:5;
+
+    width:min(700px,100%);
+
+    text-align:center;
+}
+
+.mainTitle{
+    font-size:clamp(45px,9vw,85px);
+    font-weight:1000;
+    letter-spacing:-3px;
+
+    background:linear-gradient(
+        135deg,
+        #ffffff,
+        #00e5ff,
+        #b52cff,
+        #ffffff
+    );
+
+    background-size:250%;
+
+    -webkit-background-clip:text;
+    background-clip:text;
+
+    color:transparent;
+
+    animation:titleMove 5s linear infinite;
+
+    margin-bottom:8px;
+}
+
+@keyframes titleMove{
+    0%{
+        background-position:0%;
+    }
+    100%{
+        background-position:250%;
+    }
+}
+
+.subtitle{
+    color:#8d8a9b;
+    margin-bottom:28px;
+    font-size:14px;
+}
+
+/* =========================
+   صندوق الأسماء
+========================= */
+
+.inputWrapper{
+    position:relative;
+    padding:2px;
+    border-radius:26px;
+
+    background:
+        linear-gradient(
+            120deg,
+            #00e5ff,
+            #7b00ff,
+            #ff00c8,
+            #00e5ff
+        );
+
+    background-size:300%;
+
+    animation:borderMove 5s linear infinite;
+}
+
+@keyframes borderMove{
+    0%{
+        background-position:0%;
+    }
+    100%{
+        background-position:300%;
+    }
+}
+
+#namesInput{
+    display:block;
+
+    width:100%;
+    min-height:300px;
+
+    resize:none;
+    outline:none;
+    border:0;
+
+    border-radius:24px;
+
+    padding:25px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(12,8,25,.98),
+            rgba(5,5,15,.98)
+        );
+
+    color:white;
+
+    font-size:18px;
+    line-height:1.8;
+
+    text-align:right;
+
+    box-shadow:
+        inset 0 0 40px rgba(0,0,0,.5);
+}
+
+#namesInput::placeholder{
+    color:#656171;
+}
+
+#namesInput:focus{
+    box-shadow:
+        inset 0 0 40px rgba(0,0,0,.5),
+        0 0 35px rgba(0,229,255,.12);
+}
+
+/* =========================
+   زر البداية
+========================= */
+
+.startButton{
+    position:relative;
+
+    width:100%;
+    height:70px;
+
+    margin-top:20px;
+
+    border:0;
+    border-radius:20px;
+
+    cursor:pointer;
+
+    color:white;
+
+    font-size:19px;
+    font-weight:1000;
+    letter-spacing:2px;
+
+    background:
+        linear-gradient(
+            100deg,
+            #00bcd4,
+            #7b00ff,
+            #e100ff
+        );
+
+    background-size:200%;
+
+    box-shadow:
+        0 0 25px rgba(123,0,255,.3),
+        0 15px 50px rgba(0,0,0,.5);
+
+    transition:.25s;
+
+    animation:buttonMove 4s linear infinite;
+}
+
+@keyframes buttonMove{
+    0%{
+        background-position:0%;
+    }
+    100%{
+        background-position:200%;
+    }
+}
+
+.startButton:hover{
+    transform:translateY(-4px);
+    box-shadow:
+        0 0 40px rgba(0,229,255,.3),
+        0 20px 60px rgba(0,0,0,.6);
+}
+
+.startButton:active{
+    transform:scale(.97);
+}
+
+/* =========================
+   صفحة العجلة
+========================= */
+
+#pageWheel{
+    align-items:center;
+    justify-content:center;
+
+    padding:90px 10px 20px;
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(123,0,255,.13),
+            transparent 35%
+        ),
+        #030208;
+}
+
+.wheelArea{
+    position:relative;
+
+    width:min(82vw,680px);
+    aspect-ratio:1;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+/* وهج العجلة */
+
+.wheelGlow{
+    position:absolute;
+
+    width:80%;
+    height:80%;
+
+    border-radius:50%;
+
+    background:
+        conic-gradient(
+            #00e5ff,
+            #7b00ff,
+            #ff00c8,
+            #00e5ff
+        );
+
+    filter:blur(65px);
+
+    opacity:.25;
+
+    animation:glowRotate 8s linear infinite;
+}
+
+@keyframes glowRotate{
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+/* إطار العجلة */
+
+.wheelFrame{
+    position:relative;
+
+    width:100%;
+    height:100%;
+
+    padding:12px;
+
+    border-radius:50%;
+
+    background:
+        conic-gradient(
+            #00e5ff,
+            #7b00ff,
+            #ff00d4,
+            #00e5ff
+        );
+
+    box-shadow:
+        0 0 25px rgba(0,229,255,.35),
+        0 0 80px rgba(123,0,255,.25),
+        0 30px 100px rgba(0,0,0,.8);
+}
+
+.wheelInner{
+    width:100%;
+    height:100%;
+
+    border-radius:50%;
+
+    overflow:hidden;
+
+    background:#090611;
+
+    border:5px solid #08040e;
+}
+
+#wheel{
+    width:100%;
+    height:100%;
+    display:block;
+}
+
+/* =========================
+   السهم
+========================= */
+
+.pointer{
+    position:absolute;
+
+    top:-8px;
+    left:50%;
+
+    transform:translateX(-50%);
+
+    width:0;
+    height:0;
+
+    border-left:23px solid transparent;
+    border-right:23px solid transparent;
+    border-top:0;
+    border-bottom:60px solid white;
+
+    z-index:20;
+
+    filter:
+        drop-shadow(0 0 10px #00e5ff)
+        drop-shadow(0 5px 8px black);
+}
+
+.pointer::after{
+    content:"";
+
+    position:absolute;
+
+    top:48px;
+    left:-8px;
+
+    width:16px;
+    height:16px;
+
+    border-radius:50%;
+
+    background:#ffffff;
+
+    box-shadow:
+        0 0 15px #00e5ff;
+}
+
+/* =========================
+   زر SPIN
+========================= */
+
+.spinButton{
+    position:absolute;
+
+    width:112px;
+    height:112px;
+
+    border-radius:50%;
+
+    border:7px solid #0b0712;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff,
+            #d9faff
+        );
+
+    color:#09020f;
+
+    font-size:16px;
+    font-weight:1000;
+
+    z-index:25;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 0 0 2px #00e5ff,
+        0 0 35px rgba(0,229,255,.45),
+        0 12px 35px rgba(0,0,0,.8);
+
+    transition:.2s;
+}
+
+.spinButton:hover{
+    transform:scale(1.05);
+}
+
+.spinButton:active{
+    transform:scale(.92);
+}
+
+.spinButton.disabled{
+    pointer-events:none;
+    opacity:.65;
+}
+
+/* =========================
+   بطاقة الفائز
+========================= */
+
+.winnerScreen{
+    position:fixed;
+
+    inset:0;
+
+    z-index:100;
+
+    display:none;
+
+    align-items:center;
+    justify-content:center;
+
+    padding:20px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(123,0,255,.2),
+            rgba(0,0,0,.92)
+        );
+
+    backdrop-filter:blur(18px);
+}
+
+.winnerScreen.show{
+    display:flex;
+    animation:screenIn .4s ease;
+}
+
+@keyframes screenIn{
+    from{
+        opacity:0;
+    }
+    to{
+        opacity:1;
+    }
+}
+
+.winnerCard{
+    position:relative;
+
+    width:min(620px,100%);
+
+    padding:55px 30px 35px;
+
+    text-align:center;
+
+    border-radius:35px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(25,15,45,.97),
+            rgba(6,5,15,.98)
+        );
+
+    border:1px solid rgba(255,255,255,.18);
+
+    box-shadow:
+        0 0 80px rgba(123,0,255,.3),
+        0 35px 120px rgba(0,0,0,.85);
+
+    overflow:hidden;
+
+    animation:cardPop .65s cubic-bezier(.17,.89,.32,1.3);
+}
+
+.winnerCard::before{
+    content:"";
+
+    position:absolute;
+
+    top:0;
+    left:0;
+    right:0;
+
+    height:3px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #00e5ff,
+            #7b00ff,
+            #ff00d4,
+            #00e5ff
+        );
+
+    background-size:300%;
+
+    animation:borderMove 3s linear infinite;
+}
+
+@keyframes cardPop{
+    from{
+        transform:scale(.5) translateY(50px);
+        opacity:0;
+    }
+    to{
+        transform:scale(1) translateY(0);
+        opacity:1;
+    }
+}
+
+.trophy{
+    font-size:72px;
+
+    margin-bottom:12px;
+
+    filter:
+        drop-shadow(0 0 18px rgba(255,200,0,.35));
+
+    animation:trophyFloat 1s infinite alternate ease-in-out;
+}
+
+@keyframes trophyFloat{
+    from{
+        transform:translateY(0) rotate(-3deg);
+    }
+    to{
+        transform:translateY(-10px) rotate(3deg);
+    }
+}
+
+.winnerLabel{
+    font-size:13px;
+
+    letter-spacing:5px;
+
+    color:#8f8a9b;
+
+    margin-bottom:20px;
+}
+
+#winnerName{
+    font-size:clamp(30px,7vw,65px);
+
+    font-weight:1000;
+
+    line-height:1.15;
+
+    word-break:break-word;
+
+    background:
+        linear-gradient(
+            90deg,
+            #ffffff,
+            #00e5ff,
+            #d92bff,
+            #ffffff
+        );
+
+    background-size:300%;
+
+    -webkit-background-clip:text;
+    background-clip:text;
+
+    color:transparent;
+
+    animation:nameGlow 4s linear infinite;
+}
+
+.againButton{
+    width:100%;
+
+    height:60px;
+
+    margin-top:35px;
+
+    border:0;
+
+    border-radius:17px;
+
+    background:
+        linear-gradient(
+            100deg,
+            #00d9ff,
+            #7b00ff,
+            #e500ff
+        );
+
+    color:white;
+
+    font-size:17px;
+
+    font-weight:1000;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 0 30px rgba(123,0,255,.2);
+}
+
+/* =========================
+   CONFETTI
+========================= */
+
+#confetti{
+    position:fixed;
+
+    inset:0;
+
+    z-index:150;
+
+    pointer-events:none;
+
+    overflow:hidden;
+}
+
+.confettiPiece{
+    position:absolute;
+
+    top:-30px;
+
+    width:8px;
+    height:15px;
+
+    animation:confettiFall linear forwards;
+}
+
+@keyframes confettiFall{
+    to{
+        transform:
+            translate3d(
+                var(--x),
+                110vh,
+                0
+            )
+            rotate(720deg);
+
+        opacity:0;
+    }
+}
+
+/* =========================
+   الهاتف
+========================= */
+
+@media(max-width:600px){
+
+    .owner{
+        top:17px;
+        font-size:13px;
+        padding:0 8px;
+        line-height:1.4;
+    }
+
+    #pageNames{
+        padding:90px 15px 25px;
+    }
+
+    .mainTitle{
+        font-size:48px;
+    }
+
+    #namesInput{
+        min-height:260px;
+        font-size:17px;
+        padding:20px;
+    }
+
+    .startButton{
+        height:64px;
+        font-size:17px;
+    }
+
+    #pageWheel{
+        padding-top:85px;
+    }
+
+    .wheelArea{
+        width:94vw;
+    }
+
+    .wheelFrame{
+        padding:8px;
+    }
+
+    .spinButton{
+        width:88px;
+        height:88px;
+        font-size:14px;
+        border-width:5px;
+    }
+
+    .pointer{
+        border-left-width:18px;
+        border-right-width:18px;
+        border-bottom-width:48px;
+    }
+
+    .pointer::after{
+        top:37px;
+        width:13px;
+        height:13px;
+        left:-6px;
+    }
+
+    .winnerCard{
+        padding:42px 20px 25px;
+        border-radius:27px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- =========================
+     الصفحة الأولى
+========================= -->
+
+<section class="page active" id="pageNames">
+
+    <div class="owner">
+        Ahmed Osama Abdel Hafiz El Hag Ali
+    </div>
+
+    <div class="namesBox">
+
+        <h1 class="mainTitle">
+            القرعة
+        </h1>
+
+        <div class="subtitle">
+            اكتب الأسماء، كل اسم في سطر
+        </div>
+
+        <div class="inputWrapper">
+
+            <textarea
+                id="namesInput"
+                placeholder="اكتب الأسماء هنا...&#10;&#10;أحمد&#10;محمد&#10;عمر&#10;يوسف"
+            ></textarea>
+
+        </div>
+
+        <button
+            class="startButton"
+            id="startLottery"
+        >
+            ابدأ القرعة
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     صفحة العجلة
+========================= -->
+
+<section class="page" id="pageWheel">
+
+    <div class="owner">
+        Ahmed Osama Abdel Hafiz El Hag Ali
+    </div>
+
+    <div class="wheelArea">
+
+        <div class="wheelGlow"></div>
+
+        <div class="wheelFrame">
+
+            <div class="wheelInner">
+
+                <canvas id="wheel"></canvas>
+
+            </div>
+
+        </div>
+
+        <div class="pointer"></div>
+
+        <button
+            class="spinButton"
+            id="spinButton"
+        >
+            SPIN
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     بطاقة الفائز
+========================= -->
+
+<div
+    class="winnerScreen"
+    id="winnerScreen"
+>
+
+    <div class="winnerCard">
+
+        <div class="trophy">
+            🏆
+        </div>
+
+        <div class="winnerLabel">
+            الفائز
+        </div>
+
+        <div id="winnerName">
+            -
+        </div>
+
+        <button
+            class="againButton"
+            id="againButton"
+        >
+            قرعة جديدة
+        </button>
+
+    </div>
+
+</div>
+
+<div id="confetti"></div>
+
+
+<script>
+
+/* =========================
+   العناصر
+========================= */
+
+const pageNames =
+    document.getElementById("pageNames");
+
+const pageWheel =
+    document.getElementById("pageWheel");
+
+const namesInput =
+    document.getElementById("namesInput");
+
+const startLottery =
+    document.getElementById("startLottery");
+
+const canvas =
+    document.getElementById("wheel");
+
+const ctx =
+    canvas.getContext("2d");
+
+const spinButton =
+    document.getElementById("spinButton");
+
+const winnerScreen =
+    document.getElementById("winnerScreen");
+
+const winnerName =
+    document.getElementById("winnerName");
+
+const againButton =
+    document.getElementById("againButton");
+
+
+/* =========================
+   البيانات
+========================= */
+
+let names = [];
+
+let rotation = 0;
+
+let spinning = false;
+
+
+/* =========================
+   ألوان العجلة
+========================= */
+
+const colors = [
+
+    "#00e5ff",
+    "#7200ff",
+    "#ff00c8",
+    "#00b8ff",
+    "#9d00ff",
+    "#ff168f",
+    "#00d9c8",
+    "#6200ff",
+    "#e600ff",
+    "#0099ff"
+
+];
+
+
+/* =========================
+   قراءة الأسماء
+========================= */
+
+function getNames(){
+
+    return namesInput.value
+        .split(/\n|,/)
+        .map(name => name.trim())
+        .filter(name => name.length > 0);
+
+}
+
+
+/* =========================
+   الانتقال للعجلة
+========================= */
+
+startLottery.addEventListener(
+    "click",
+    () => {
+
+        names = getNames();
+
+        if(names.length < 2){
+
+            namesInput.focus();
+
+            return;
+
+        }
+
+        rotation = 0;
+
+        pageNames.classList.remove("active");
+
+        pageWheel.classList.add("active");
+
+        setTimeout(() => {
+
+            resizeCanvas();
+
+            drawWheel();
+
+            setTimeout(() => {
+
+                spin();
+
+            },400);
+
+        },80);
+
+    }
+);
+
+
+/* =========================
+   حجم Canvas
+========================= */
+
+function resizeCanvas(){
+
+    const rect =
+        canvas.getBoundingClientRect();
+
+    const size =
+        Math.min(
+            rect.width,
+            rect.height
+        );
+
+    const dpr =
+        window.devicePixelRatio || 1;
+
+    canvas.width =
+        size * dpr;
+
+    canvas.height =
+        size * dpr;
+
+    ctx.setTransform(
+        dpr,
+        0,
+        0,
+        dpr,
+        0,
+        0
+    );
+
+}
+
+
+/* =========================
+   رسم العجلة
+========================= */
+
+function drawWheel(){
+
+    const rect =
+        canvas.getBoundingClientRect();
+
+    const size =
+        Math.min(
+            rect.width,
+            rect.height
+        );
+
+    const center =
+        size / 2;
+
+    const radius =
+        size / 2 - 2;
+
+    ctx.clearRect(
+        0,
+        0,
+        size,
+        size
+    );
+
+
+    if(names.length === 0){
+        return;
+    }
+
+
+    const slice =
+        Math.PI * 2 / names.length;
+
+
+    names.forEach(
+        (name,index) => {
+
+            const start =
+                -Math.PI / 2 +
+                index * slice +
+                rotation *
+                Math.PI / 180;
+
+            const end =
+                start + slice;
+
+
+            /* القطاع */
+
+            ctx.beginPath();
+
+            ctx.moveTo(
+                center,
+                center
+            );
+
+            ctx.arc(
+                center,
+                center,
+                radius,
+                start,
+                end
+            );
+
+            ctx.closePath();
+
+            const gradient =
+                ctx.createLinearGradient(
+                    0,
+                    0,
+                    size,
+                    size
+                );
+
+            const base =
+                colors[
+                    index %
+                    colors.length
+                ];
+
+            gradient.addColorStop(
+                0,
+                base
+            );
+
+            gradient.addColorStop(
+                1,
+                "#07030d"
+            );
+
+            ctx.fillStyle =
+                gradient;
+
+            ctx.fill();
+
+
+            /* الخطوط */
+
+            ctx.strokeStyle =
+                "rgba(255,255,255,.35)";
+
+            ctx.lineWidth = 2;
+
+            ctx.stroke();
+
+
+            /* النص */
+
+            ctx.save();
+
+            ctx.translate(
+                center,
+                center
+            );
+
+            ctx.rotate(
+                start +
+                slice / 2
+            );
+
+            ctx.translate(
+                radius * .64,
+                0
+            );
+
+            ctx.rotate(
+                Math.PI / 2
+            );
+
+            let text =
+                name;
+
+            if(text.length > 17){
+
+                text =
+                    text.substring(
+                        0,
+                        16
+                    ) + "…";
+
+            }
+
+            let fontSize =
+                Math.max(
+                    10,
+                    Math.min(
+                        22,
+                        180 /
+                        Math.sqrt(
+                            names.length
+                        )
+                    )
+                );
+
+            ctx.font =
+                `900 ${fontSize}px Arial`;
+
+            ctx.textAlign =
+                "center";
+
+            ctx.textBaseline =
+                "middle";
+
+            ctx.fillStyle =
+                "#ffffff";
+
+            ctx.shadowColor =
+                "rgba(0,0,0,.6)";
+
+            ctx.shadowBlur = 5;
+
+            ctx.fillText(
+                text,
+                0,
+                0
+            );
+
+            ctx.restore();
+
+        }
+    );
+
+
+    /* الحلقة الخارجية */
+
+    ctx.beginPath();
+
+    ctx.arc(
+        center,
+        center,
+        radius - 1,
+  
